@@ -149,8 +149,12 @@ def main():
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 elif (selected_cards[0][0] == top[0] == "Пропуск хода" or (selected_cards[0][0] == "Пропуск хода" and selected_cards[0][1] == top[1])) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
-                    print(f"Следующие {termcolor.colored(len(selected_cards), "light_yellow")} игроков пропустят ход.")
                     skip += len(selected_cards)
+                    if skip > len(players) - 1:
+                        print(f"Невозможно, чтобы следующие {termcolor.colored(skip, "light_yellow")} игроков пропустили ход.\nЭто число снижено до {termcolor.colored(len(players_tags) - 1, "light_yellow")} игроков.")
+                        skip = len(players) - 1
+                    else:
+                        print(f"Следующие {termcolor.colored(skip, "light_yellow")} игроков пропустят ход.")
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 elif (selected_cards[0][0] == top[0] == "Разворот" or (selected_cards[0][0] == "Разворот" and selected_cards[0][1] == top[1])) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
