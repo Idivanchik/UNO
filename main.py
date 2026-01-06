@@ -21,10 +21,12 @@ def set_up_the_game():
         cards.append(["Смена цвета", "magenta"])
         cards.append(["+4", "magenta"])
     random.shuffle(cards)
-    players_number = int(input("Введите количество игроков: "))
+    players_number = int(input("Введите количество игроков: \033[1;33m"))
+    print("\033[0m", end="")
     players = {}
     for player_index in range(players_number):
-        playername = input(f"Введите имя {termcolor.colored(player_index + 1, "light_yellow")} игрока: ")
+        playername = input(f"Введите имя {termcolor.colored(player_index + 1, "light_yellow")} игрока: \033[1;33m")
+        print("\033[0m", end="")
         if playername:
             players[playername] = cards[0:6]
         else:
@@ -74,9 +76,11 @@ def do_a_turn(selected_cards, players, current_player, bank, top):
 
 
 def set_new_color(top):
-    new_color = input("Введите цвет, который хотите установить (red, blue, yellow, green): ")
+    new_color = input("Введите цвет, который хотите установить (red, blue, yellow, green): \033[1;33m")
+    print("\033[0m", end="")
     while new_color not in COLORS:
-        new_color = input("Такого цвета нет.\nВведите цвет, который хотите установить (red, blue, yellow, green): ")
+        new_color = input("Такого цвета нет.\nВведите цвет, который хотите установить (red, blue, yellow, green): \033[1;33m")
+        print("\033[0m", end="")
     top[1] = new_color
     return top
 
@@ -127,7 +131,8 @@ def main():
         elif next == 0:
             print_my_cards(players, current_player)
             print(f"Верхняя карта: {termcolor.colored(top[0], top[1])}")
-            selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять карту: ").split()]
+            selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
+            print("\033[0m", end="")
             while True:
                 if not selected_cards:
                     new_cards, cards = ask_for_cards(cards, bank, 1)
@@ -136,7 +141,8 @@ def main():
                     print(f"Вы взяли карту {termcolor.colored(players[current_player][-1][0], players[current_player][-1][1])}, она добавлена вам в руку.")
                     print_my_cards(players, current_player)
                     print(f"Верхняя карта: {termcolor.colored(top[0], top[1])}")
-                    selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять карту: ").split()]
+                    selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
+                    print("\033[0m", end="")
                 elif selected_cards[0][0] == "+4" and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
                     next += 4 * len(selected_cards)
                     print(f"Следующий игрок будет вынужден взять {termcolor.colored(4 * len(selected_cards), "light_yellow")} карт или превевести.")
@@ -177,12 +183,14 @@ def main():
                     break
                 else:
                     print("Эти карты не подходят.")
-                    selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять карту: ").split()]
+                    selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
+                    print("\033[0m", end="")
         else:
             print(f"Вы должны взять {termcolor.colored(next, "light_yellow")} карт или перевести.")
             print_my_cards(players, current_player)
             print(f"Верхняя карта: {termcolor.colored(top[0], top[1])}")
-            selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: ").split()]
+            selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: \033[1;33m").split()]
+            print("\033[0m", end="")
             while True:
                 if not selected_cards:
                     print("Вы взяли карты: ", end="")
@@ -206,7 +214,8 @@ def main():
                     break
                 else:
                     print("Эти карты не подходят.")
-                    selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: ").split()]
+                    selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {termcolor.colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: \033[1;33m").split()]
+                    print("\033[0m", end="")
         input(termcolor.colored("(Нажмите Enter для завершения хода)", "light_yellow"))
         os.system("cls")
         a += b
