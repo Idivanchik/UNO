@@ -113,7 +113,7 @@ def main():
     b = 1
     next = 0
     skip = 0
-    print(f"Первым ходит {termcolor.colored(players_tags[a], "light_yellow")}.")
+    print(f"{termcolor.colored(players_tags[a], "light_yellow")} ходит первым.")
     input(termcolor.colored("(Нажмите Enter для начала игры)", "light_yellow"))
     os.system("cls")
     while len(players_tags) > 1:
