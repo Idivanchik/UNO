@@ -24,7 +24,11 @@ def set_up_the_game():
     players_number = int(input("Введите количество игроков: "))
     players = {}
     for player_index in range(players_number):
-        players[player_index] = cards[0:6]
+        playername = input(f"Введите имя {termcolor.colored(player_index + 1, "light_yellow")} игрока: ")
+        if playername:
+            players[playername] = cards[0:6]
+        else:
+            players[f"{player_index + 1} {termcolor.colored("игрок", "white")}"] = cards[0:6]
         cards = cards[6:]
     top = cards.pop(0)
     return players, top, cards
@@ -33,7 +37,7 @@ def set_up_the_game():
 def check_players(players, players_tags):
     for p in players_tags:
         if players[p] == []:
-            print(f"Победил {termcolor.colored(p + 1, "light-yellow")} игрок!")
+            print(f"{termcolor.colored(p, "light_yellow")} победил(а)!")
             players.pop(p)
             players_tags.remove(p)
             return True
@@ -109,12 +113,12 @@ def main():
     b = 1
     next = 0
     skip = 0
-    print(f"Первым ходит {termcolor.colored(a + 1, "light_yellow")} игрок.")
+    print(f"Первым ходит {termcolor.colored(players_tags[a], "light_yellow")}.")
     input(termcolor.colored("(Нажмите Enter для начала игры)", "light_yellow"))
     os.system("cls")
     while len(players_tags) > 1:
         current_player = players_tags[a % len(players_tags)]
-        input(f"\nХодит {termcolor.colored(current_player + 1, "light_yellow")} игрок.\n{termcolor.colored("(Нажмите Enter для начала хода)", "light_yellow")}")
+        input(f"\n{termcolor.colored(current_player, "light_yellow")} ходит.\n{termcolor.colored("(Нажмите Enter для начала хода)", "light_yellow")}")
         if skip > 0:
             print_my_cards(players, current_player)
             print(f"Верхняя карта: {termcolor.colored(top[0], top[1])}")
