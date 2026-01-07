@@ -138,7 +138,6 @@ def main():
             while True:
                 print()
                 if not selected_cards:
-                    new_cards, cards = ask_for_cards(cards, bank, 1)
                     for card in new_cards:
                         players[current_player].append(card)
                     print(colored("Вы взяли карту ", "light_yellow") + colored(players[current_player][-1][0], players[current_player][-1][1]) + colored(", она добавлена вам в руку.", "light_yellow"))
