@@ -122,15 +122,15 @@ def main():
     os.system("cls")
     while len(players_tags) > 1:
         current_player = players_tags[a % len(players_tags)]
-        print(f"\n{colored(current_player, "light_yellow")} ходит.")
-        input(colored(f"(Нажмите Enter для начала хода)", "light_yellow"))
-        print()
+        flag = False
         if skip > 0:
-            print_my_cards(players, current_player)
-            print(f"Верхняя карта: {colored(top[0], top[1])}")
-            print(colored("Вы пропускаете ход.", "light_yellow"))
+            print(colored(current_player, "red") + colored(" пропускает ход.", "light_yellow"))
+            flag = True
             skip -= 1
         elif next == 0:
+            print(f"\n{colored(current_player, "light_yellow")} ходит.")
+            input(colored(f"(Нажмите Enter для начала хода)", "light_yellow"))
+            print()
             print_my_cards(players, current_player)
             print(f"Верхняя карта: {colored(top[0], top[1])}")
             selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
@@ -192,6 +192,9 @@ def main():
                     print("\033[0m", end="")
                     print()
         else:
+            print(f"\n{colored(current_player, "light_yellow")} ходит.")
+            input(colored(f"(Нажмите Enter для начала хода)", "light_yellow"))
+            print()
             print(colored("Вы должны взять ", "light_yellow") + colored(next, "red") + colored(" карт или перевести.", "light_yellow"))
             print_my_cards(players, current_player)
             print(f"Верхняя карта: {colored(top[0], top[1])}")
@@ -224,9 +227,10 @@ def main():
                     selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: \033[1;33m").split()]
                     print("\033[0m", end="")
                 print()
-        print()
-        input(colored("(Нажмите Enter для завершения хода)", "light_yellow"))
-        os.system("cls")
+        if not flag:
+            print()
+            input(colored("(Нажмите Enter для завершения хода)", "light_yellow"))
+            os.system("cls")
         a += b
         check_players(players, players_tags)
 
