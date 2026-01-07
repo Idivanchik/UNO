@@ -136,8 +136,8 @@ def main():
             selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
             print("\033[0m", end="")
             while True:
-                print()
                 if not selected_cards:
+                    print()
                     new_card, cards = ask_for_cards(cards, bank, 1)
                     players[current_player].append(new_card[0])
                     print(colored("Вы взяли карту ", "light_yellow") + colored(players[current_player][-1][0], players[current_player][-1][1]) + colored(", она добавлена вам в руку.", "light_yellow"))
@@ -187,6 +187,7 @@ def main():
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 else:
+                    print()
                     print(colored("Эти карты не подходят.", "light_yellow"))
                     selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
                     print("\033[0m", end="")
