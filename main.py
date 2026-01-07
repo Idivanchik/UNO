@@ -109,6 +109,10 @@ def ask_for_cards(cards, bank, coll):
 
 
 def main():
+    answer = input(colored("ВНИМАНИЕ!!! После запуска игры командная строка будет очищена!", "red") + f"\nДля отмены напишите {colored("<<Нет>>", "light_yellow")}: \033[1;33m")
+    print("\033[0m", end="")
+    if answer.lower() == "нет":
+        quit()
     os.system("cls")
     players, top, cards = set_up_the_game()
     players_tags = list(players.keys())
