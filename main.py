@@ -140,17 +140,17 @@ def main():
             print_cards(players[current_player], "Ваши карты: ")
             print(f"Верхняя карта: {colored(top[0], top[1])}")
             selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
-            print("\033[0m", end="")
+            print("\033[0m")
             while True:
                 if not selected_cards:
-                    print()
                     new_card, cards = ask_for_cards(cards, bank, 1)
                     players[current_player].append(new_card[0])
                     print(colored("Вы взяли карту ", "light_yellow") + colored(players[current_player][-1][0], players[current_player][-1][1]) + colored(", она добавлена вам в руку.", "light_yellow"))
+                    print()
                     print_cards(players[current_player], "Ваши карты: ")
                     print(f"Верхняя карта: {colored(top[0], top[1])}")
                     selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
-                    print("\033[0m")
+                    print("\033[0m", end="")
                 elif selected_cards[0][0] == "+4" and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
                     next += 4 * len(selected_cards)
                     print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
@@ -199,22 +199,21 @@ def main():
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 else:
-                    print()
                     print(colored("Эти карты не подходят.", "light_yellow"))
                     selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
                     print("\033[0m", end="")
-                    print()
+                print()
         else:
             print(f"\n{colored(current_player, "light_yellow")} ходит.")
             input(colored(f"(Нажмите Enter для начала хода)", "light_yellow"))
             print()
             print(colored("Вы должны взять ", "light_yellow") + colored(next, "red") + colored(" карт или перевести.", "light_yellow"))
+            print()
             print_cards(players[current_player], "Ваши карты: ")
             print(f"Верхняя карта: {colored(top[0], top[1])}")
             selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: \033[1;33m").split()]
             print("\033[0m", end="")
             while True:
-                print()
                 if not selected_cards:
                     print(colored("Вы взяли карты: ", "light_yellow"), end="")
                     new_cards, cards = ask_for_cards(cards, bank, next)
