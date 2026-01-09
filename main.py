@@ -153,17 +153,20 @@ def main():
                     print("\033[0m")
                 elif selected_cards[0][0] == "+4" and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
                     next += 4 * len(selected_cards)
+                    print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     print(colored("Следующий игрок будет вынужден взять ", "light_yellow") + colored(next, "red") + colored(" карт или превевести.", "light_yellow"))
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     top = set_new_color(top)
                     break
                 elif (selected_cards[0][0] == top[0] == "+2" or (selected_cards[0][0] == "+2" and selected_cards[0][1] == top[1])) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
                     next += 2 * len(selected_cards)
+                    print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     print(colored("Следующий игрок будет вынужден взять ", "light_yellow") + colored(next, "red") + colored(" карт или превевести.", "light_yellow"))
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 elif (selected_cards[0][0] == top[0] == "Пропуск хода" or (selected_cards[0][0] == "Пропуск хода" and selected_cards[0][1] == top[1])) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
                     skip += len(selected_cards)
+                    print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     if skip > len(players) - 1:
                         print(colored("Невозможно, чтобы следующие ", "light_yellow") + colored(skip, "red") + colored(" игроков пропустили ход.", "light_yellow"))
                         print(colored("Это число снижено до ", "light_yellow") + colored(len(players_tags) - 1, "red") + colored(" игроков.", "light_yellow"))
@@ -173,6 +176,7 @@ def main():
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 elif (selected_cards[0][0] == top[0] == "Разворот" or (selected_cards[0][0] == "Разворот" and selected_cards[0][1] == top[1])) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
+                    print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     if len(selected_cards) % 2 == 0 and len(players_tags) > 2:
                         print(colored("Вы бросили ", "light_yellow") + colored("чётное", "red") + colored(" количество карт.", "light_yellow"), end=" ")
                         print(colored("Игра пойдёт ", "light_yellow") + colored("в том же", "red") + colored(" направлении.", "light_yellow"))
@@ -186,10 +190,12 @@ def main():
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 elif selected_cards[0][0] == "Смена цвета" and len(selected_cards) == 1:
+                    print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     top = set_new_color(top)
                     break
                 elif (selected_cards[0][0] == top[0] or selected_cards[0][1] == top[1]) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
+                    print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 else:
@@ -223,9 +229,13 @@ def main():
                 elif check_many_cards(copy.deepcopy(selected_cards), top):
                     if top[0] == "+2":
                         next += 2 * len(selected_cards)
+                        print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
+                        print(colored("Следующий игрок будет вынужден взять ", "light_yellow") + colored(next, "red") + colored(" карт или превевести.", "light_yellow"))
                         top = do_a_turn(selected_cards, players, current_player, bank, top)
                     else:
                         next += 4 * len(selected_cards)
+                        print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
+                        print(colored("Следующий игрок будет вынужден взять ", "light_yellow") + colored(next, "red") + colored(" карт или превевести.", "light_yellow"))
                         top = do_a_turn(selected_cards, players, current_player, bank, top)
                         top = set_new_color(top)
                     break
