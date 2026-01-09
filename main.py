@@ -242,6 +242,7 @@ def main():
         winner = check_players(players, players_tags)
         if winner:
             winners.append(winner)
+    os.system("cls")
     print(colored("Игра окончена!", "light_yellow"))
     if len(players_tags_start) > 3:
         print(colored("Первое место: ", "light_yellow") + colored(players_tags_start[0], "red") + colored("!", "light_yellow"))
