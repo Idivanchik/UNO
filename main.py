@@ -30,7 +30,7 @@ def set_up_the_game():
         if playername:
             players[playername] = cards[0:6]
         else:
-            players[f"{player_index + 1} {colored("игрок", "white")}"] = cards[0:6]
+            players[f"{player_index + 1} игрок"] = cards[0:6]
         cards = cards[6:]
     top = cards.pop(0)
     return players, top, cards
@@ -42,7 +42,7 @@ def check_players(players, players_tags):
             print(f"{colored(p, "light_yellow")} победил(а)!")
             players.pop(p)
             players_tags.remove(p)
-            return True
+            return p
     return False
 
 
@@ -121,6 +121,8 @@ def main():
     b = 1
     next = 0
     skip = 0
+    players_tags_start = copy.deepcopy(players_tags)
+    winners = []
     print(f"{colored(players_tags[a], "light_yellow")} ходит первым.")
     input(colored("(Нажмите Enter для начала игры)", "light_yellow"))
     os.system("cls")
@@ -237,7 +239,18 @@ def main():
             input(colored("(Нажмите Enter для завершения хода)", "light_yellow"))
             os.system("cls")
         a += b
-        check_players(players, players_tags)
+        winner = check_players(players, players_tags)
+        if winner:
+            winners.append(winner)
+    print(colored("Игра окончена!", "light_yellow"))
+    if len(players_tags_start) > 3:
+        print(colored("Первое место: ", "light_yellow") + colored(players_tags_start[0], "red") + colored("!", "light_yellow"))
+        print(colored("Второе место: ", "light_yellow") + colored(players_tags_start[1], "red") + colored("!", "light_yellow"))
+        print(colored("Третье место: ", "light_yellow") + colored(players_tags_start[2], "red") + colored("!", "light_yellow"))
+        print(colored("В дураках остался(ась): ", "light_yellow") + colored(players_tags_start[-1], "red") + colored(".", "light_yellow"))
+    else:
+        print(colored("Победитель: ", "light_yellow") + colored(players_tags_start[0], "red") + colored("!", "light_yellow"))
+        print(colored("В дураках остался(ась): ", "light_yellow") + colored(players_tags_start[-1], "red") + colored(".", "light_yellow"))
 
 
 if __name__ == "__main__":
