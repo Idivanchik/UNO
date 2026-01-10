@@ -69,7 +69,7 @@ def do_a_turn(selected_cards, players, current_player, bank, top):
     for selected_card in selected_cards:
         players[current_player].remove(selected_card)
     bank.append(top)
-    top = selected_cards.pop(-1)
+    top = selected_cards[-1]
     for card in selected_cards:
         bank.append(card)
     return top
@@ -152,11 +152,12 @@ def main():
                     selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
                     print("\033[0m", end="")
                 elif selected_cards[0][0] == "+4" and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
+                    top = do_a_turn(selected_cards, players, current_player, bank, top)
+                    top = set_new_color(top)
+                    print()
                     next += 4 * len(selected_cards)
                     print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     print(colored("Следующий игрок будет вынужден взять ", "light_yellow") + colored(next, "red") + colored(" карт или превевести.", "light_yellow"))
-                    top = do_a_turn(selected_cards, players, current_player, bank, top)
-                    top = set_new_color(top)
                     break
                 elif (selected_cards[0][0] == top[0] == "+2" or (selected_cards[0][0] == "+2" and selected_cards[0][1] == top[1])) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
                     next += 2 * len(selected_cards)
@@ -190,9 +191,10 @@ def main():
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 elif selected_cards[0][0] == "Смена цвета" and len(selected_cards) == 1:
-                    print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     top = set_new_color(top)
+                    print()
+                    print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     break
                 elif (selected_cards[0][0] == top[0] or selected_cards[0][1] == top[1]) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
                     print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
@@ -232,11 +234,12 @@ def main():
                         print(colored("Следующий игрок будет вынужден взять ", "light_yellow") + colored(next, "red") + colored(" карт или превевести.", "light_yellow"))
                         top = do_a_turn(selected_cards, players, current_player, bank, top)
                     else:
+                        top = do_a_turn(selected_cards, players, current_player, bank, top)
+                        top = set_new_color(top)
+                        print()
                         next += 4 * len(selected_cards)
                         print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                         print(colored("Следующий игрок будет вынужден взять ", "light_yellow") + colored(next, "red") + colored(" карт или превевести.", "light_yellow"))
-                        top = do_a_turn(selected_cards, players, current_player, bank, top)
-                        top = set_new_color(top)
                     break
                 else:
                     print(colored("Эти карты не подходят.", "light_yellow"))
