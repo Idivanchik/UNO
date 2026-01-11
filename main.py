@@ -96,25 +96,29 @@ def set_new_color(top):
 
 def ask_for_cards(cards, bank, coll):
     if coll > len(cards):
+        new_cards = cards[:]
+        cards = []
         for card in bank:
             if card[0] == "+4" or card[0] == "Смена цвета":
                 card[1] = "magenta"
             cards.append(card)
-        bank = []
         random.shuffle(cards)
-        return cards[:coll], cards
+        add, cards = cards[:coll - len(new_cards)], cards[coll - len(new_cards):]
+        for new_card in add:
+            new_cards.append(new_card)
+        return cards[:coll], cards, []
     elif coll == len(cards):
         new_cards = cards[:]
         for card in bank:
             if card[0] == "+4" or card[0] == "Смена цвета":
                 card[1] = "magenta"
             cards.append(card)
-        bank = []
+        cards = bank[:]
         random.shuffle(cards)
-        return new_cards, cards
+        return new_cards, cards, []
     else:
-        new_cards, cards = cards[:coll], cards[coll + 1:]
-        return new_cards, cards
+        new_cards, cards = cards[:coll], cards[coll:]
+        return new_cards, cards, bank
 
 
 def main():
@@ -153,7 +157,7 @@ def main():
             print("\033[0m")
             while True:
                 if not selected_cards:
-                    new_card, cards = ask_for_cards(cards, bank, 1)
+                    new_card, cards, bank = ask_for_cards(cards, bank, 1)
                     players[current_player].append(new_card[0])
                     print(colored("Вы взяли карту ", "light_yellow") + colored(players[current_player][-1][0], players[current_player][-1][1]) + colored(", она добавлена вам в руку.", "light_yellow"))
                     print()
@@ -231,7 +235,7 @@ def main():
                 print()
                 if not selected_cards:
                     print(colored("Вы взяли карты: ", "light_yellow"), end="")
-                    new_cards, cards = ask_for_cards(cards, bank, next)
+                    new_cards, cards, bank = ask_for_cards(cards, bank, next)
                     for card in new_cards:
                         players[current_player].append(card)
                     for k in range(next - 1):
