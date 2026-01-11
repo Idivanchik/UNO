@@ -53,6 +53,15 @@ def print_cards(cards, message):
     print()
 
 
+def print_col_of_cards(players, players_tags):
+    print("Количество карт у игроков: ", end="")
+    text = colored(f"{players_tags[0]}: ", "light_yellow") + colored(len(players[players_tags[0]]), "red")
+    for player_number in range(1, len(players_tags)):
+        text += colored(f"; {players_tags[player_number]}: ", "light_yellow") + colored(len(players[players_tags[player_number]]), "red")
+    text += colored(".", "light_yellow")
+    print(text)
+
+
 def check_many_cards(cards, top):
     if len(cards) == 0:
         return True
@@ -137,6 +146,7 @@ def main():
             print(f"\n{colored(current_player, "light_yellow")} ходит.")
             input(colored(f"(Нажмите Enter для начала хода)", "light_yellow"))
             print()
+            print_col_of_cards(players, players_tags)
             print_cards(players[current_player], "Ваши карты: ")
             print(f"Верхняя карта: {colored(top[0], top[1])}")
             selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
@@ -147,6 +157,7 @@ def main():
                     players[current_player].append(new_card[0])
                     print(colored("Вы взяли карту ", "light_yellow") + colored(players[current_player][-1][0], players[current_player][-1][1]) + colored(", она добавлена вам в руку.", "light_yellow"))
                     print()
+                    print_col_of_cards(players, players_tags)
                     print_cards(players[current_player], "Ваши карты: ")
                     print(f"Верхняя карта: {colored(top[0], top[1])}")
                     selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
@@ -211,6 +222,7 @@ def main():
             print()
             print(colored("Вы должны взять ", "light_yellow") + colored(next, "red") + colored(" карт или перевести.", "light_yellow"))
             print()
+            print_col_of_cards(players, players_tags)
             print_cards(players[current_player], "Ваши карты: ")
             print(f"Верхняя карта: {colored(top[0], top[1])}")
             selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: \033[1;33m").split()]
