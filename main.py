@@ -225,9 +225,10 @@ def main():
             print_col_of_cards(players, players_tags)
             print_cards(players[current_player], "Ваши карты: ")
             print(f"Верхняя карта: {colored(top[0], top[1])}")
-            selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: \033[1;33m").split()]
+            selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми вы переводите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: \033[1;33m").split()]
             print("\033[0m", end="")
             while True:
+                print()
                 if not selected_cards:
                     print(colored("Вы взяли карты: ", "light_yellow"), end="")
                     new_cards, cards = ask_for_cards(cards, bank, next)
@@ -236,6 +237,7 @@ def main():
                     for k in range(next - 1):
                         print(colored(players[current_player][-next + k][0], players[current_player][-next + k][1]), end=" ")
                     print(colored(players[current_player][-1][0], players[current_player][-1][1]), end=colored(".\n", "light_yellow"))
+                    print()
                     print_cards(players[current_player], "Ваши карты: ")
                     next = 0
                     break
