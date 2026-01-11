@@ -55,9 +55,9 @@ def print_cards(cards, message):
 
 def print_col_of_cards(players, players_tags):
     print("Количество карт у игроков: ", end="")
-    text = colored(f"{players_tags[0]}: ", "light_yellow") + colored(len(players[players_tags[0]]), "red")
+    text = colored(f"{players_tags[0]}: ", "light_yellow") + colored(len(players[players_tags[0]]), "light_cyan")
     for player_number in range(1, len(players_tags)):
-        text += colored(f"; {players_tags[player_number]}: ", "light_yellow") + colored(len(players[players_tags[player_number]]), "red")
+        text += colored(f"; {players_tags[player_number]}: ", "light_yellow") + colored(len(players[players_tags[player_number]]), "light_cyan")
     text += colored(".", "light_yellow")
     print(text)
 
@@ -139,7 +139,7 @@ def main():
         current_player = players_tags[a % len(players_tags)]
         flag = False
         if skip > 0:
-            print(colored(current_player, "red") + colored(" пропускает ход.", "light_yellow"))
+            print(colored(current_player, "magenta") + colored(" пропускает ход.", "red"))
             flag = True
             skip -= 1
         elif next == 0:
@@ -190,11 +190,11 @@ def main():
                 elif (selected_cards[0][0] == top[0] == "Разворот" or (selected_cards[0][0] == "Разворот" and selected_cards[0][1] == top[1])) and check_many_cards(copy.deepcopy(selected_cards[1:]), selected_cards[0]):
                     print_cards(selected_cards, colored("Вы броcили карты: ", "light_yellow"))
                     if len(selected_cards) % 2 == 0 and len(players_tags) > 2:
-                        print(colored("Вы бросили ", "light_yellow") + colored("чётное", "red") + colored(" количество карт.", "light_yellow"), end=" ")
-                        print(colored("Игра пойдёт ", "light_yellow") + colored("в том же", "red") + colored(" направлении.", "light_yellow"))
+                        print(colored("Вы бросили ", "light_yellow") + colored("чётное", "light_cyan") + colored(" количество карт.", "light_yellow"), end=" ")
+                        print(colored("Игра пойдёт ", "light_yellow") + colored("в том же", "light_cyan") + colored(" направлении.", "light_yellow"))
                     elif len(selected_cards) % 2 == 1 and len(players_tags) > 2:
-                        print(colored("Вы бросили ", "light_yellow") + colored("нечётное", "red") + colored(" количество карт.", "light_yellow"), end=" ")
-                        print(colored("Игра пойдёт ", "light_yellow") + colored("в противоположном", "red") + colored(" направлении.", "light_yellow"))
+                        print(colored("Вы бросили ", "light_yellow") + colored("нечётное", "light_cyan") + colored(" количество карт.", "light_yellow"), end=" ")
+                        print(colored("Игра пойдёт ", "light_yellow") + colored("в противоположном", "light_cyan") + colored(" направлении.", "light_yellow"))
                         b = -b
                     else:
                         print(colored("В игре два игрока, поэтому вам будет предоставлен ещё один ход после завершения данного.", "light_yellow"))
@@ -212,7 +212,7 @@ def main():
                     top = do_a_turn(selected_cards, players, current_player, bank, top)
                     break
                 else:
-                    print(colored("Эти карты не подходят.", "light_yellow"))
+                    print(colored("Эти карты не подходят.", "red"))
                     selected_cards = [players[current_player][int(x) - 1] for x in input(f"Введите через пробел номера карт, которыми ходите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять карту: \033[1;33m").split()]
                     print("\033[0m", end="")
                 print()
@@ -254,7 +254,7 @@ def main():
                         print(colored("Следующий игрок будет вынужден взять ", "light_yellow") + colored(next, "red") + colored(" карт или превевести.", "light_yellow"))
                     break
                 else:
-                    print(colored("Эти карты не подходят.", "light_yellow"))
+                    print(colored("Эти карты не подходят.", "red"))
                     selected_cards = [players[current_player][int(x) - 1] for x in input(f"\nВведите через пробел номера карт, которыми вы переводите или нажмите {colored("Enter", "light_yellow")} для того, чтобы взять {next} карт: \033[1;33m").split()]
                     print("\033[0m", end="")
                 print()
@@ -269,12 +269,12 @@ def main():
     os.system("cls")
     print(colored("Игра окончена!", "light_yellow"))
     if len(players_tags_start) > 3:
-        print(colored("Первое место: ", "light_yellow") + colored(players_tags_start[0], "red") + colored("!", "light_yellow"))
-        print(colored("Второе место: ", "light_yellow") + colored(players_tags_start[1], "red") + colored("!", "light_yellow"))
-        print(colored("Третье место: ", "light_yellow") + colored(players_tags_start[2], "red") + colored("!", "light_yellow"))
+        print(colored("Первое место: ", "light_yellow") + colored(players_tags_start[0], "light_cyan") + colored("!", "light_yellow"))
+        print(colored("Второе место: ", "light_yellow") + colored(players_tags_start[1], "light_cyan") + colored("!", "light_yellow"))
+        print(colored("Третье место: ", "light_yellow") + colored(players_tags_start[2], "light_cyan") + colored("!", "light_yellow"))
         print(colored("В дураках остался(ась): ", "light_yellow") + colored(players_tags_start[-1], "red") + colored(".", "light_yellow"))
     else:
-        print(colored("Победитель: ", "light_yellow") + colored(players_tags_start[0], "red") + colored("!", "light_yellow"))
+        print(colored("Победитель: ", "light_yellow") + colored(players_tags_start[0], "light_cyan") + colored("!", "light_yellow"))
         print(colored("В дураках остался(ась): ", "light_yellow") + colored(players_tags_start[-1], "red") + colored(".", "light_yellow"))
 
 
